@@ -1,0 +1,21 @@
+<div class="container text-center">
+  <table>
+    <thead>
+      <tr>
+        <th>name</th>
+        <th>date</th>
+        <th>description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @groups.each do |groups| %>
+        <td><%= groups.name %></td>
+        <td><%= groups.date %></td>
+        <td><%= groups.description %></td>
+        <td><%= link_to "Show", group_path(groups), :class => "btn btn-default" %></td>
+        <td><%= link_to "Edit", edit_group_path(groups), :class => "btn btn-info" %></td>
+        <td><%= link_to "Show", group_path(groups),method: :destroy, :class => "btn btn-danger" %></td>
+      <% end %>
+    </tbody>
+  </table>
+</div>
