@@ -1,0 +1,28 @@
+
+<div class="container">
+
+<%= link_to "Create", new_topic_path, :class => "btn btn-warning" %>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>name</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    <% @topics.each do |topics| %>
+      <tr>
+
+        <td><%= topics.name %></td>
+
+        <td><%= link_to "Show", topic_path(topics), :class => "btn btn-default" %></td>
+        <td><%= link_to "Edit", edit_topic_path(topics), :class => "btn btn-info" %></td>
+        <td><%= link_to "Del", topic_path(topics),method: :delete, :class => "btn btn-danger" %></td>
+
+      </tr>
+      <% end %>
+    </tbody>
+
+  </table>
+
+</div>

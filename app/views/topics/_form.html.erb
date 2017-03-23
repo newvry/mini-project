@@ -1,0 +1,27 @@
+<div class="container text-center">
+
+
+<% if @topic.errors.any? %>
+ <ul>
+   <% @topic.errors.full_messages.each do |msg| %>
+     <li><%= msg %></li>
+   <% end %>
+ </ul>
+<% end %>
+
+    <%= form_for @topic do |t| %>
+
+       <tr>
+        <tr><%= t.label :name %></tr>
+        <tr><%= t.text_field :name %></tr>
+        <tr><%= t.label :date %></tr>
+        <tr><%= t.text_field :date %></tr>
+        <tr><%= t.label :description %></tr>
+        <tr><%= t.text_area :description %></tr>
+       </tr>
+
+        <%= t.submit btn_name, :class => "btn btn-danger" %>
+
+    <% end %>
+
+</div>

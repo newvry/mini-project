@@ -1,0 +1,15 @@
+<div class="container text-center">
+  <table class="table">
+
+    <h4>Title:</h4>
+    <%= @topic.name %>
+    <h4>Date:</h4>
+    <%= @topic.date %>
+    <h4>Description:</h4>
+    <%= @topic.description %>
+
+    <p>
+      <%= link_to 'Back', topics_path, :class => "btn btn-primary" %>
+    </p>
+  </table>
+</div>
