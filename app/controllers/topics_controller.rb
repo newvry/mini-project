@@ -1,8 +1,8 @@
 class TopicsController < ApplicationController
 
-  before_action :authenticate_user!, except: [:index]
+  #before_action :authenticate_user!, except: [:index]
 
-
+  before_action :topic_find, only: [:show, :edit, :update, :destroy]
 
   def index
     @topics = Topic.all
@@ -22,15 +22,12 @@ class TopicsController < ApplicationController
   end
 
   def show
-    @topic = Topic.find(params[:id])
   end
 
   def edit
-    @topic = Topic.find(params[:id])
   end
 
   def update
-    @topic = Topic.find(params[:id])
     if @topic.update(topic_params)
       redirect_to topic_path
     else
@@ -39,13 +36,16 @@ class TopicsController < ApplicationController
   end
 
   def destroy
-    @topic = Topic.find(params[:id])
     @topic.destroy
 
     redirect_to topics_path
   end
 
   private
+
+  def topic_find
+    @topic = Topic.find(params[:id])
+  end
 
   def topic_params
     params.require(:topic).permit(:name, :date, :description)
