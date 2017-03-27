@@ -10,8 +10,8 @@
 <% end %>
 
     <%= form_for @topic do |t| %>
-
        <tr>
+        <tr><%= t.collection_check_boxes(:category_ids, Category.all, :id, :title) %></tr>
         <tr><%= t.label :name %></tr>
         <tr><%= t.text_field :name %></tr>
         <tr><%= t.label :date %></tr>

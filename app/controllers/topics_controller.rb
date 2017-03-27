@@ -5,7 +5,13 @@ class TopicsController < ApplicationController
   before_action :topic_find, only: [:show, :edit, :update, :destroy, :comments]
 
   def index
-    @topics = Topic.all
+    if (params[:order] == "comment_last")
+      @topics = Topic.all.order("created_at DESC")
+    # elsif (params[:order] == "comments_count" )
+    #   @topics = Topic.all.order()
+    else
+      @topics = Topic.all.order("created_at ASC")
+    end
   end
 
   def new
@@ -24,7 +30,6 @@ class TopicsController < ApplicationController
   end
 
   def show
-
     @comments = Topic.find(params[:id]).comments
     @comment = Comment.new
   end
@@ -63,7 +68,11 @@ class TopicsController < ApplicationController
   end
 
   def topic_params
-    params.require(:topic).permit(:name, :date, :description, :content)
+    params.require(:topic).permit(:name,
+                                  :date,
+                                  :description,
+                                  :content,
+                                  :category_ids => [])
   end
 
 end

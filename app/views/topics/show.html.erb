@@ -1,5 +1,10 @@
 <div class="container text-center">
   <table class="table">
+    <h4>Catrgory:</h4>
+      <% @topic.categories.each do |g| %>
+        <%= g.title %>
+      <% end %>
+
 
     <h4>Title:</h4>
     <%= @topic.name %>
@@ -14,6 +19,7 @@
     <% @comments.each do |comment| %>
     <%= comment.content %> <br>
     <% end %>
+
 
     <div class="table text-center">
       <%= form_for @comment, :url => comments_topic_path(@topic) do |t| %>
