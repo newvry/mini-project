@@ -3,13 +3,38 @@
 
     <h4>Title:</h4>
     <%= @topic.name %>
+
     <h4>Date:</h4>
     <%= @topic.date %>
+
     <h4>Description:</h4>
     <%= @topic.description %>
+
+    <h4>Comment:</h4>
+    <% @comments.each do |comment| %>
+    <%= comment.content %> <br>
+    <% end %>
+
+    <div class="table text-center">
+      <%= form_for @comment, :url => comments_topic_path(@topic) do |t| %>
+        <% if @topic.errors.any? %>
+         <ul>
+           <% @topic.errors.full_messages.each do |msg| %>
+             <li><%= msg %></li>
+           <% end %>
+         </ul>
+        <% end %>
+
+          <tr><%= t.label :content %></tr>
+          <tr><%= t.text_field :content %></tr>
+          <%= t.submit "Create comment" %>
+        <% end %>
+    </div>
 
     <p>
       <%= link_to 'Back', topics_path, :class => "btn btn-primary" %>
     </p>
+
   </table>
 </div>
+
