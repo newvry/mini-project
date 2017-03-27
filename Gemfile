@@ -25,7 +25,7 @@ gem 'coffee-rails', '~> 4.2'
 
 gem "devise"
 
-
+gem "kaminari"
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

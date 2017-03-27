@@ -1,26 +1,41 @@
 
 <div class="container">
 
-<%= link_to "Create", new_topic_path, :class => "btn btn-warning" %>
+<%= link_to "Create", new_topic_path, :class => "btn btn-warning" %> <br> <br>
+<%= link_to "Newest Topic", topics_path( order: :comment_last ), :class => "btn btn-primary" %>
+<%= link_to "Most comments", topics_path( order: :comments_count ), :class => "btn btn-primary" %>
+<%= paginate @topics %>
+
+
   <table class="table table-hover">
     <thead>
       <tr>
+        <th>分類</th>
         <th>標題</th>
         <th>評論回覆數</th>
       </tr>
     </thead>
 
+  <%= form_tag topics_path, method: :get do %> <!-- form_tag 是一個表單，select_tag是表單裡裡面的內容，單一的內容，submit就是select_tag裡面的onchang，點了就會送出去。 -->
+   <%= select_tag "category", options_from_collection_for_select(Category.all, "id", "title", params[:category]), onchange: 'this.form.submit()', prompt: "ALL" %>
+  <% end %>
+
     <tbody>
-    <% @topics.each do |topics| %>
+    <% @topics.each do |topic| %>
       <tr>
+        <td>
+          <% topic.categories.each do |title| %>
+            <%= title.title %><br>
+          <% end %>
+        </td>
 
-        <td><%= topics.name %></td>
+        <td><%= topic.name %></td>
 
-        <td><%= topics.comments.count %></td>
+        <td><%= topic.comments.count %></td>
 
-        <td><%= link_to "Show", topic_path(topics), :class => "btn btn-default" %></td>
-        <td><%= link_to "Edit", edit_topic_path(topics), :class => "btn btn-info" %></td>
-        <td><%= link_to "Del", topic_path(topics),method: :delete, :class => "btn btn-danger" %></td>
+        <td><%= link_to "Show", topic_path(topic), :class => "btn btn-default" %></td>
+        <td><%= link_to "Edit", edit_topic_path(topic), :class => "btn btn-info" %></td>
+        <td><%= link_to "Del", topic_path(topic),method: :delete, :class => "btn btn-danger" %></td>
 
       </tr>
       <% end %>

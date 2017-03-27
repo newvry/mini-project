@@ -5,12 +5,17 @@ class TopicsController < ApplicationController
   before_action :topic_find, only: [:show, :edit, :update, :destroy, :comments]
 
   def index
+    category = Category.find(params[:category]) if params[:category]
+
     if (params[:order] == "comment_last")
-      @topics = Topic.all.order("created_at DESC")
+      @topics = Topic.all.order("created_at DESC").page(params[:page]).per(5)
     # elsif (params[:order] == "comments_count" )
     #   @topics = Topic.all.order()
+    elsif category
+      @topics = category.topics.order("created_at DESC").page(params[:page]).per(5)
+
     else
-      @topics = Topic.all.order("created_at ASC")
+      @topics = Topic.all.order("created_at ASC").page(params[:page]).per(5)
     end
   end
 
