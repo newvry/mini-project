@@ -6,16 +6,14 @@ class TopicsController < ApplicationController
 
   def index
     category = Category.find(params[:category]) if params[:category]
-
-    if (params[:order] == "comment_last")
-      @topics = Topic.all.order("created_at DESC").page(params[:page]).per(5)
-    # elsif (params[:order] == "comments_count" )
-    #   @topics = Topic.all.order()
+    if (params[:last] == "latest")
+      @topics = Topic.all.order("comment_last DESC").page(params[:page]).per(5)
+    elsif (params[:order] == "comments_count" )
+      @topics = Topic.all.order("comments_count DESC").page(params[:page]).per(5)
     elsif category
       @topics = category.topics.order("created_at DESC").page(params[:page]).per(5)
-
     else
-      @topics = Topic.all.order("created_at ASC").page(params[:page]).per(5)
+      @topics = Topic.all.order("id ASC").page(params[:page]).per(5)
     end
   end
 
@@ -59,7 +57,18 @@ class TopicsController < ApplicationController
   def comments
     @comments = @topic.comments.new(comment_params)
     @comments.save
+    @topic.comment_last = @comments.created_at
+    @topic.save
+    @topic.comments_count
+    @topic.save
+
       redirect_to topic_path(@topic)
+  end
+
+  def about
+    @users = User.count
+    @topics = Topic.count
+    @comments = Comment.count
   end
 
   private

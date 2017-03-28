@@ -2,9 +2,11 @@
 <div class="container">
 
 <%= link_to "Create", new_topic_path, :class => "btn btn-warning" %> <br> <br>
-<%= link_to "Newest Topic", topics_path( order: :comment_last ), :class => "btn btn-primary" %>
+<%= link_to "Newest Topic", topics_path( last: :latest ), :class => "btn btn-primary" %>
 <%= link_to "Most comments", topics_path( order: :comments_count ), :class => "btn btn-primary" %>
+<%= link_to "About the web", about_topics_path, :class => "btn btn-primary" %>
 <%= paginate @topics %>
+
 
 
   <table class="table table-hover">
