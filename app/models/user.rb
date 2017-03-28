@@ -6,4 +6,6 @@ class User < ApplicationRecord
 
   has_many :topics
 
+  has_one :profile
+
 end
