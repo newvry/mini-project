@@ -18,6 +18,8 @@
           <th>作者</th>
           <th>標題</th>
           <th>評論回覆數</th>
+          <th>發表時間</th>
+          <th>最後回覆時間</th>
         </tr>
       </thead>
 
@@ -44,6 +46,17 @@
 
           <td>
             <%= topic.comments.count %>
+          </td>
+
+
+          <td>
+            <%= topic.created_at.strftime("%Y-%m-%d") %><br>
+            <%= topic.created_at.strftime("%H:%M:%S") %>
+          </td>
+
+
+          <td>
+            <%= topic.comment_last %>
           </td>
 
           <% if current_user == topic.user && current_user %>
