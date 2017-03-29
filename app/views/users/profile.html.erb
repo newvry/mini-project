@@ -4,12 +4,24 @@
   <thead>
     <tr>
       <th class="text-center">個人簡介</th>
+      <th class="text-center">張貼過的文章</th>
+      <th class="text-center">回覆過的評論</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>
         <%= @profile.content %>
+      </td>
+      <td>
+        <% @topics.each do |t| %>
+          <%= t.name %><br>
+        <% end %>
+      </td>
+      <td>
+        <% @comments.each do |t| %>
+          <%= t.content %><br>
+        <% end %>
       </td>
     </tr>
   </tbody>

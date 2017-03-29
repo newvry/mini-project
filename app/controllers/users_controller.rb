@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
 
   def profile
+    @topics = current_user.topics
+    @comments = current_user.comments
     if current_user.profile.present?
       @profile = current_user.profile
     else
@@ -9,10 +11,9 @@ class UsersController < ApplicationController
   end
 
   def edit_profile
-
     @profile = current_user.build_profile(profile_params)
-      @profile.save
-      redirect_to profile_users_path
+    @profile.save
+    redirect_to profile_users_path
   end
 
 
