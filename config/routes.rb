@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :users do
     collection do
       get :profile
+      put :edit_profile
     end
   end
 
