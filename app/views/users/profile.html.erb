@@ -1,0 +1,27 @@
+<div class="container text-center">
+
+<table class = "table">
+  <thead>
+    <tr>
+      <th class="text-center">個人簡介</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <%= @profile.content %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  <%= form_for @profile, url: edit_profile_users_path, method: :put do |t| %>
+    <%= t.label :content, "編輯個人簡介" %><br>
+    <%= t.text_area :content %><br>
+    <%= t.submit %><br>
+  <% end %><br>
+
+  <%= link_to "Home", topics_path, :class => "btn btn-primary" %>
+
+</div>
+
