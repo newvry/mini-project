@@ -23,13 +23,6 @@
 
     <div class="table text-center">
       <%= form_for @comment, :url => comments_topic_path(@topic) do |t| %>
-        <% if @topic.errors.any? %>
-         <ul>
-           <% @topic.errors.full_messages.each do |msg| %>
-             <li><%= msg %></li>
-           <% end %>
-         </ul>
-        <% end %>
 
           <tr><%= t.label :content %></tr>
           <tr><%= t.text_field :content %></tr>
