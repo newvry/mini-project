@@ -55,12 +55,15 @@ class TopicsController < ApplicationController
   end
 
   def comments
-    @comments = @topic.comments.new(comment_params)
-    @comments.save
-    @topic.comment_last = @comments.created_at
+    @comment = @topic.comments.new(comment_params)
+    @comment.user_id = current_user.id
+
+    @comment.save
+
+    @topic.comment_last = @comment.created_at
     @topic.save
-    @topic.comments_count
-    @topic.save
+
+
 
       redirect_to topic_path(@topic)
   end
@@ -70,6 +73,8 @@ class TopicsController < ApplicationController
     @topics = Topic.count
     @comments = Comment.count
   end
+
+
 
   private
 
