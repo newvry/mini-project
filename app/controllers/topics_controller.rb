@@ -4,6 +4,8 @@ class TopicsController < ApplicationController
 
   before_action :topic_find, only: [:show, :edit, :update, :destroy, :comments]
 
+  before_action :find_topic_and_check_permission, only: [:edit, :update, :destroy]
+
   def index
     category = Category.find(params[:category]) if params[:category]
     if (params[:last] == "latest")
@@ -77,6 +79,12 @@ class TopicsController < ApplicationController
 
 
   private
+
+  def find_topic_and_check_permission
+    if @topic.user_id != current_user.id
+      redirect_to topics_path, alert: "You have no permission."
+    end
+  end
 
   def topic_find
     @topic = Topic.find(params[:id])
