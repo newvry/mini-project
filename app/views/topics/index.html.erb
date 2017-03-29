@@ -1,11 +1,13 @@
 
 <div class="container">
 
-  <%= link_to "Create", new_topic_path, :class => "btn btn-warning" %> <br> <br>
-  <%= link_to "Newest Topic", topics_path( last: :latest ), :class => "btn btn-primary" %>
-  <%= link_to "Most comments", topics_path( order: :comments_count ), :class => "btn btn-primary" %>
   <%= link_to "About the web", about_topics_path, :class => "btn btn-primary" %>
-  <%= link_to "Profile", profile_users_path, :class => "btn btn-primary" %>
+  <%= link_to "Profile", profile_users_path, :class => "btn btn-primary" %><br>
+  <%= link_to "Newest comments", topics_path( last: :latest ), :class => "btn btn-primary" %>
+  <%= link_to "Most comments", topics_path( order: :comments_count ), :class => "btn btn-primary" %>
+  <%= link_to "Create", new_topic_path, :class => "btn btn-warning" %>
+
+
 
   <%= paginate @topics %>
 
@@ -13,6 +15,7 @@
       <thead>
         <tr>
           <th>分類</th>
+          <th>作者</th>
           <th>標題</th>
           <th>評論回覆數</th>
         </tr>
@@ -31,14 +34,34 @@
             <% end %>
           </td>
 
-          <td><%= topic.name %></td>
+          <td>
+            <%= topic.user.email %>
+          </td>
 
-          <td><%= topic.comments.count %></td>
+          <td>
+            <%= link_to topic.name, topic_path(topic) %>
+          </td>
 
-          <td><%= link_to "Show", topic_path(topic), :class => "btn btn-default" %></td>
-          <td><%= link_to "Edit", edit_topic_path(topic), :class => "btn btn-info" %></td>
-          <td><%= link_to "Del", topic_path(topic),method: :delete, :class => "btn btn-danger" %></td>
+          <td>
+            <%= topic.comments.count %>
+          </td>
 
+          <% if current_user == topic.user && current_user %>
+
+            <td>
+              <%= link_to "Edit", edit_topic_path(topic), :class => "btn btn-info" %>
+            </td>
+
+            <td>
+              <%= link_to "Del", topic_path(topic),method: :delete, :class => "btn btn-danger" %>
+            </td>
+
+          <% else %>
+
+            <td></td>
+            <td></td>
+
+          <% end %>
         </tr>
         <% end %>
       </tbody>
