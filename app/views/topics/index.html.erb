@@ -1,13 +1,10 @@
 
 <div class="container">
 
-  <%= link_to "About the web", about_topics_path, :class => "btn btn-primary" %>
-  <%= link_to "Profile", profile_users_path, :class => "btn btn-primary" %><br>
+  <%= link_to "Create", new_topic_path, :class => "btn btn-warning" %><br>
+
   <%= link_to "Newest comments", topics_path( last: :latest ), :class => "btn btn-primary" %>
   <%= link_to "Most comments", topics_path( order: :comments_count ), :class => "btn btn-primary" %>
-  <%= link_to "Create", new_topic_path, :class => "btn btn-warning" %>
-
-
 
   <%= paginate @topics %>
 
