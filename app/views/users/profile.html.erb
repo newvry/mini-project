@@ -4,8 +4,6 @@
   <thead>
     <tr>
       <th class="text-center">個人簡介</th>
-      <th class="text-center">張貼過的文章</th>
-      <th class="text-center">回覆過的評論</th>
     </tr>
   </thead>
   <tbody>
@@ -13,27 +11,62 @@
       <td>
         <%= @profile.content %>
       </td>
-      <td>
-        <% @topics.each do |t| %>
-          <%= t.name %><br>
-        <% end %>
-      </td>
-      <td>
-        <% @comments.each do |t| %>
-          <%= t.content %><br>
-        <% end %>
-      </td>
     </tr>
   </tbody>
-</table>
 
+</table>
   <%= form_for @profile, url: edit_profile_users_path, method: :put do |t| %>
     <%= t.label :content, "編輯個人簡介" %><br>
     <%= t.text_area :content %><br>
     <%= t.submit %><br>
   <% end %><br>
 
-  <%= link_to "Home", topics_path, :class => "btn btn-primary" %>
 
+
+<table class="table class=text-center">
+  <thead>
+    <tr>
+      <th class="text-center">張貼過的文章抬頭</th>
+      <th class="text-center">張貼過的文章時間</th>
+      <th class="text-center">張貼過的文章內容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @topics.each do |t| %>
+      <tr>
+        <td><%= t.name %></td>
+        <td><%= t.date %></td>
+        <td><%= t.description %></td>
+        <td><%= link_to "Edit", edit_topic_path(t), :class => "btn btn-info" %></td>
+        <td><%= link_to "Del", topic_path(t),method: :delete, :class => "btn btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<table class="table class=text-center">
+  <thead>
+    <tr>
+      <th class="text-center">文章抬頭</th>
+      <th class="text-center">回覆過的評論</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td class="text-center">
+          <%= comment.topic.name %></td>
+          <td><%= comment.content %></td>
+          <td><%= link_to "Edit", profile_users_path(id: comment), :class => "btn btn-info" %></td>
+          <td><%= link_to "Delete", del_my_comment_users_path(idd: comment), method: :delete, :class => "btn btn-danger" %></td>
+      </tr>
+    <% end %>
+
+      <%= form_for @comment, url: edit_my_comment_users_path(id: @comment), method: :put do |t| %>
+        <%= t.label :content, "編輯留言" %><br>
+        <%= t.text_area :content %><br>
+        <%= t.submit %><br>
+      <% end %><br>
+  </tbody>
+</table>
 </div>
-

@@ -43,7 +43,8 @@ class TopicsController < ApplicationController
   end
 
   def update
-    if @topic.update(topic_params)
+    @topic.update(topic_params)
+    if @topic.save
       redirect_to topic_path
     else
       render :edit

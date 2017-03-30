@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     collection do
       get :profile
       put :edit_profile
+      put :edit_my_comment
+      delete :del_my_comment
     end
   end
 
