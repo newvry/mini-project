@@ -5,6 +5,7 @@
 
   <%= link_to "Newest comments", topics_path( last: :latest ), :class => "btn btn-primary" %>
   <%= link_to "Most comments", topics_path( order: :comments_count ), :class => "btn btn-primary" %>
+  <%= link_to "Most views", topics_path( views: :views_count ), :class => "btn btn-primary" %>
 
   <%= paginate @topics %>
 

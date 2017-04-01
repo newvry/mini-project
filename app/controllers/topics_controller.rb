@@ -12,6 +12,8 @@ class TopicsController < ApplicationController
       @topics = Topic.all.order("comment_last DESC").page(params[:page]).per(5)
     elsif (params[:order] == "comments_count" )
       @topics = Topic.all.order("comments_count DESC").page(params[:page]).per(5)
+    elsif (params[:views] == "views_count" )
+      @topics = Topic.all.order("views_count DESC").page(params[:page]).per(5)
     elsif category
       @topics = category.topics.order("created_at DESC").page(params[:page]).per(5)
     else
