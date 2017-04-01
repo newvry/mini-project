@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :topics do
     member do
       post :comments
+      delete :del_topic_comment
     end
     collection do
       get :about

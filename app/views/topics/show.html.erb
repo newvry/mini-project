@@ -53,7 +53,7 @@
         <tr>
           <td>
             <% if comment.user.present? %>
-              <%= comment.user.email %>
+              <%= comment.user.first_email %>
             <% end %>
           </td>
           <td>
@@ -63,8 +63,12 @@
             <% if comment.photo.present? %>
               <%= image_tag comment.photo.image.medium.url %>
             <% end %>
+          </td>
+          <td>
+            <%= link_to "Delete", del_topic_comment_topic_path(comment_id: comment), method: :delete, :class => "btn btn-danger" %>
 
           </td>
+
         </tr>
       <% end %>
     </tbody>

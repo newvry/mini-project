@@ -32,7 +32,7 @@ class UsersController < ApplicationController
   end
 
   def del_my_comment
-    @comment = Comment.find(params[:idd])
+    @comment = Comment.find(params[:id])
     @comment.destroy
     redirect_to profile_users_path
   end

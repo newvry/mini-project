@@ -2,7 +2,7 @@ class TopicsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index]
 
-  before_action :topic_find, only: [:show, :edit, :update, :destroy, :comments]
+  before_action :topic_find, only: [:show, :edit, :update, :destroy, :comments, :del_topic_comment]
 
   before_action :find_topic_and_check_permission, only: [:edit, :update, :destroy]
 
@@ -53,8 +53,8 @@ class TopicsController < ApplicationController
   end
 
   def update
-    @topic.update(topic_params)
-    if @topic.save
+
+    if @topic.update(topic_params)
       redirect_to topic_path
     else
       render :edit
@@ -80,6 +80,12 @@ class TopicsController < ApplicationController
     @users = User.count
     @topics = Topic.count
     @comments = Comment.count
+  end
+
+  def del_topic_comment
+    @comment = Comment.find(params[:comment_id])
+    @comment.destroy
+    redirect_to topic_path(@topic)
   end
 
 

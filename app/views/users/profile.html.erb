@@ -60,7 +60,7 @@
           <% end %>
           <td><%= comment.content %></td>
           <td><%= link_to "Edit", profile_users_path(id: comment), :class => "btn btn-info" %></td>
-          <td><%= link_to "Delete", del_my_comment_users_path(idd: comment), method: :delete, :class => "btn btn-danger" %></td>
+          <td><%= link_to "Delete", del_my_comment_users_path(id: comment), method: :delete, :class => "btn btn-danger" %></td>
       </tr>
     <% end %>
 

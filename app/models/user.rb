@@ -13,6 +13,11 @@ class User < ApplicationRecord
   has_one :photo, dependent: :destroy
   accepts_nested_attributes_for :photo
 
+
+  def first_email
+    email.split("@").first
+  end
+
   def self.from_omniauth(auth)
    # Case 1: Find existing user by facebook uid
    user = User.find_by_fb_uid( auth.uid )
