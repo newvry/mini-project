@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :comments
 
   has_one :profile
+  has_one :photo, dependent: :destroy
+  accepts_nested_attributes_for :photo
 
   def self.from_omniauth(auth)
    # Case 1: Find existing user by facebook uid

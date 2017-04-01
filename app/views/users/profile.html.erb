@@ -55,7 +55,9 @@
     <% @comments.each do |comment| %>
       <tr>
         <td class="text-center">
-          <%= comment.topic.name %></td>
+          <% if comment.topic.present? %>
+            <%= comment.topic.name %></td>
+          <% end %>
           <td><%= comment.content %></td>
           <td><%= link_to "Edit", profile_users_path(id: comment), :class => "btn btn-info" %></td>
           <td><%= link_to "Delete", del_my_comment_users_path(idd: comment), method: :delete, :class => "btn btn-danger" %></td>

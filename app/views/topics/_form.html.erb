@@ -9,7 +9,7 @@
  </ul>
 <% end %>
 
-    <%= form_for @topic do |t| %>
+    <%= simple_form_for @topic do |t| %>
        <tr>
         <tr><%= t.collection_check_boxes(:category_ids, Category.all, :id, :title) %></tr>
         <tr><%= t.label :name %></tr>
@@ -18,6 +18,13 @@
         <tr><%= t.text_field :date %></tr>
         <tr><%= t.label :description %></tr>
         <tr><%= t.text_area :description %></tr>
+
+        <div class="form-group">
+          <%= t.simple_fields_for :photo do |c| %>
+          <%= c.input :image, as: :file %>
+        <% end %>
+        </div>
+
        </tr>
 
         <%= t.submit btn_name, :class => "btn btn-danger" %>
@@ -25,3 +32,4 @@
     <% end %>
 
 </div>
+

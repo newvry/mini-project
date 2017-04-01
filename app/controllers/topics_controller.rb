@@ -21,6 +21,7 @@ class TopicsController < ApplicationController
 
   def new
     @topic = Topic.new
+    @photo = @topic.build_photo
   end
 
   def create
@@ -28,6 +29,7 @@ class TopicsController < ApplicationController
     # @topic.user_id = current_user.id
     @topic = current_user.topics.new(topic_params)
     if @topic.save
+
       redirect_to topics_path
     else
       render :new
@@ -37,9 +39,11 @@ class TopicsController < ApplicationController
   def show
     @comments = Topic.find(params[:id]).comments
     @comment = Comment.new
+    @photo = @comment.build_photo
   end
 
   def edit
+    @photo = @topic.build_photo
   end
 
   def update
@@ -60,14 +64,9 @@ class TopicsController < ApplicationController
   def comments
     @comment = @topic.comments.new(comment_params)
     @comment.user_id = current_user.id
-
     @comment.save
-
     @topic.comment_last = @comment.created_at
     @topic.save
-
-
-
       redirect_to topic_path(@topic)
   end
 
@@ -92,7 +91,7 @@ class TopicsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:content)
+    params.require(:comment).permit(:content, photo_attributes: [:id, :image])
   end
 
   def topic_params
@@ -100,6 +99,7 @@ class TopicsController < ApplicationController
                                   :date,
                                   :description,
                                   :content,
+                                  photo_attributes: [:id, :image],
                                   :category_ids => [])
   end
 

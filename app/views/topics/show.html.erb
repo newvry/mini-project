@@ -1,39 +1,97 @@
 <div class="container text-center">
   <table class="table">
-    <h4>Catrgory:</h4>
-      <% @topic.categories.each do |g| %>
-        <%= g.title %>
+    <thead>
+      <tr>
+        <th class="text-center"><h4>Catrgory:</h4></th>
+        <th class="text-center"><h4>Title:</h4></th>
+        <th class="text-center"><h4>Date:</h4></th>
+        <th class="text-center"><h4>Description:</h4></th>
+        <th class="text-center"><h4>Photo:</h4></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="text-center">
+        <td>
+          <% @topic.categories.each do |g| %>
+            <%= g.title %>
+          <% end %>
+        </td>
+        <td>
+          <%= @topic.name %>
+        </td>
+        <td>
+          <%= @topic.date %>
+        </td>
+        <td>
+          <%= @topic.description %>
+        </td>
+        <td>
+          <% if @topic.photo.present? %>
+            <%= image_tag @topic.photo.image.thumb.url %>
+          <% end %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="text-center">
+          <h4>Comment's author</h4>
+        </th>
+        <th class="text-center">
+          <h4>Comment:</h4>
+        </th>
+        <th class="text-center">
+          <h4>Comment's Photo</h4>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @comments.each do |comment| %>
+        <tr>
+          <td>
+            <% if comment.user.present? %>
+              <%= comment.user.email %>
+            <% end %>
+          </td>
+          <td>
+              <%= comment.content %>
+          </td>
+          <td>
+            <% if comment.photo.present? %>
+              <%= image_tag comment.photo.image.medium.url %>
+            <% end %>
+
+          </td>
+        </tr>
       <% end %>
+    </tbody>
+
+  </table>
+
+    <div class="form-group">
+      <%= simple_form_for @comment, :url => comments_topic_path(@topic) do |t| %>
+        <tr><%= t.label :content, "回覆評論" %></tr><br>
+        <tr><%= t.text_field :content %></tr>
+        <%= t.submit "Create comment" %>
+
+        <div class="form-group">
+          <%= t.simple_fields_for :photo do |c| %>
+            <%= c.input :image, as: :file %>
+          <% end %>
+        </div>
 
 
-    <h4>Title:</h4>
-    <%= @topic.name %>
-
-    <h4>Date:</h4>
-    <%= @topic.date %>
-
-    <h4>Description:</h4>
-    <%= @topic.description %>
-
-    <h4>Comment:</h4>
-    <% @comments.each do |comment| %>
-    <%= comment.content %> <br>
-    <% end %>
-
-
-    <div class="table text-center">
-      <%= form_for @comment, :url => comments_topic_path(@topic) do |t| %>
-
-          <tr><%= t.label :content %></tr>
-          <tr><%= t.text_field :content %></tr>
-          <%= t.submit "Create comment" %>
-        <% end %>
+      <% end %>
     </div>
+
 
     <p>
       <%= link_to 'Back', topics_path, :class => "btn btn-primary" %>
     </p>
 
-  </table>
+
 </div>
 
