@@ -14,8 +14,9 @@
           <th>分類</th>
           <th>作者</th>
           <th>標題</th>
-          <th>評論回覆數</th>
           <th>發表時間</th>
+          <th>評論回覆數</th>
+          <th>瀏覽人數</th>
           <th>最後回覆時間</th>
         </tr>
       </thead>
@@ -42,13 +43,17 @@
           </td>
 
           <td>
-            <%= topic.comments.count %>
+            <%= topic.created_at.strftime("%Y-%m-%d") %><br>
+            <%= topic.created_at.strftime("%H:%M:%S") %>
           </td>
 
 
           <td>
-            <%= topic.created_at.strftime("%Y-%m-%d") %><br>
-            <%= topic.created_at.strftime("%H:%M:%S") %>
+            <%= topic.comments.count %>
+          </td>
+
+          <td>
+            <%= topic.views_count %>
           </td>
 
 

@@ -40,6 +40,10 @@ class TopicsController < ApplicationController
     @comments = Topic.find(params[:id]).comments
     @comment = Comment.new
     @photo = @comment.build_photo
+
+    @views_count = @topic.views_count
+    @views_count =  @views_count + 1
+    @topic.update( :views_count => @views_count ) #:views_count是只要更新此欄位
   end
 
   def edit
