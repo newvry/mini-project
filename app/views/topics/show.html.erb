@@ -34,6 +34,13 @@
     </tbody>
   </table>
 
+    <div class="text-left">
+      <h4>Comment's author:</h4>
+        <% @topic.comment_user.each do |t| %>
+          <%= t %>,
+        <% end %>
+    </div>
+
   <table class="table">
     <thead>
       <tr>
@@ -65,6 +72,9 @@
             <% end %>
           </td>
           <td>
+            <%= link_to "Edit", topic_path(comment_id: comment), :class => "btn btn-danger" %>
+          </td>
+          <td>
             <%= link_to "Delete", del_topic_comment_topic_path(comment_id: comment), method: :delete, :class => "btn btn-danger" %>
 
           </td>
@@ -87,6 +97,9 @@
           <% end %>
         </div>
 
+        <% if @photo.image.present? %>
+          <%= image_tag @comment.photo.image.medium.url %>
+        <% end %>
 
       <% end %>
     </div>
