@@ -72,13 +72,14 @@
             <% end %>
           </td>
           <td>
+            <% if current_user == comment.user && current_user %>
+
             <%= link_to "Edit", topic_path(comment_id: comment), :class => "btn btn-danger" %>
           </td>
           <td>
             <%= link_to "Delete", del_topic_comment_topic_path(comment_id: comment), method: :delete, :class => "btn btn-danger" %>
-
           </td>
-
+            <% end %>
         </tr>
       <% end %>
     </tbody>
@@ -86,7 +87,7 @@
   </table>
 
     <div class="form-group">
-      <%= simple_form_for @comment, :url => comments_topic_path(@topic) do |t| %>
+      <%= simple_form_for @comment, :url => comments_topic_path(@topic, comment_id: @comment ), method: :post do |t| %>
         <tr><%= t.label :content, "回覆評論" %></tr><br>
         <tr><%= t.text_field :content %></tr>
         <%= t.submit "Create comment" %>

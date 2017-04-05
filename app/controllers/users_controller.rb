@@ -25,10 +25,9 @@ class UsersController < ApplicationController
 
   def edit_my_comment
     @comment = Comment.find(params[:id])
-      @comment.update(my_comment_params)
-    if @comment.save
-      redirect_to profile_users_path
-    end
+      if @comment.update(my_comment_params)
+        redirect_to profile_users_path
+      end
   end
 
   def del_my_comment

@@ -40,8 +40,18 @@ class TopicsController < ApplicationController
 
   def show
     @comments = Topic.find(params[:id]).comments
-    @comment = Comment.new
-    @photo = @comment.build_photo
+
+    if params[:comment_id]
+      @comment = Comment.find(params[:comment_id])
+      if @comment.photo.present?
+        @photo = @comment.photo
+      else
+        @photo = @comment.build_photo
+      end
+    else
+      @comment = Comment.new
+      @photo = @comment.build_photo
+    end
 
     @views_count = @topic.views_count
     @views_count =  @views_count + 1
@@ -68,9 +78,15 @@ class TopicsController < ApplicationController
   end
 
   def comments
-    @comment = @topic.comments.new(comment_params)
-    @comment.user_id = current_user.id
-    @comment.save
+
+    if params[:comment_id]
+      @comment = Comment.find(params[:comment_id])
+      @comment.update(comment_params)
+    else
+      @comment = @topic.comments.new(comment_params)
+      @comment.user_id = current_user.id
+      @comment.save
+    end
     @topic.comment_last = @comment.created_at
     @topic.save
       redirect_to topic_path(@topic)
@@ -103,7 +119,7 @@ class TopicsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:content, photo_attributes: [:id, :image])
+    params.require(:comment).permit(:content, :comment_id, photo_attributes: [:id, :image])
   end
 
   def topic_params
