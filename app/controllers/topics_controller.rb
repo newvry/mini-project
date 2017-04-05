@@ -78,7 +78,9 @@ class TopicsController < ApplicationController
   end
 
   def comments
-
+    #因為comments的動詞為post，create表單預設也是post，所以新增一個comment會跑到comments的action
+    #但是如果表單有資料，標單的預設動詞會變成patch，就會變成找不到這個comments的action(因為兩個動詞不一樣)，
+    #所以要在表單路徑後面給預設的動詞method: :post，才會再回到comments的action
     if params[:comment_id]
       @comment = Comment.find(params[:comment_id])
       @comment.update(comment_params)
